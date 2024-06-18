@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator Integral Kalkulus</title>
+</head>
+<body>
+    <div class="calculator">
+        <h2>Kalkulator Integral Kalkulus</h2>
+        <div>
+            <label for="expression">Fungsi (misal: 2x^3 - 3x^2 + 5x + 7):</label>
+            <input type="text" id="expression" placeholder="Contoh: 2*x^3 - 3*x^2 + 5*x + 7">
+        </div>
+        <div>
+            <label for="lowerLimit">Batas Bawah:</label>
+            <input type="number" id="lowerLimit">
+        </div>
+        <div>
+            <label for="upperLimit">Batas Atas:</label>
+            <input type="number" id="upperLimit">
+        </div>
+        <button onclick="calculateIntegral()">Hitung Integral</button>
+        <div id="result"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/9.4.4/math.min.js"></script>
+    <script>
+        // Fungsi untuk menghitung integral dengan metode trapesium
+        function calculateIntegral() {
+            var expression = document.getElementById("expression").value;
+            var lowerLimit = parseFloat(document.getElementById("lowerLimit").value);
+            var upperLimit = parseFloat(document.getElementById("upperLimit").value);
+
+            var h = 0.001; // Lebar interval
+            var n = Math.ceil((upperLimit - lowerLimit) / h); // Jumlah subinterval (ditambah 1)
+
+            var integral = 0;
+            for (var i = 1; i < n; i++) {
+                var xi = lowerLimit + i * h; // Titik xi
+                integral += math.evaluate(expression, { x: xi }); // Evaluasi fungsi pada titik xi dan jumlahkan
+            }
+
+            // Hitung nilai akhir integral dengan metode trapesium
+            integral += (math.evaluate(expression, { x: lowerLimit }) + math.evaluate(expression, { x: upperLimit })) / 2;
+            integral *= h;
+
+            // Tampilkan hasil integral
+            document.getElementById("result").innerHTML = "Hasil integral tentu dari " + expression + " dari " + lowerLimit + " hingga " + upperLimit + " adalah: " + integral.toFixed(2);
+        }
+    </script>
+</body>
+</html>
